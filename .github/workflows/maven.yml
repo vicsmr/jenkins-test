@@ -36,8 +36,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    
-    - name: Publish package
-      run: mvn -B deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload math result for job 1
+      uses: actions/upload-artifact@v1
+      with:
+        name: testing
+        path: target/enunciado-practica-testing.jar
