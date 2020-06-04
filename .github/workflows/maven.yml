@@ -37,5 +37,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    - name: Upload math result for job 1
-      run: cd target; ls
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: testing
+        path: target/enunciado-practica-testing-1.0.0.jar
