@@ -42,7 +42,7 @@ public class SeleniumTest {
 
 	@BeforeEach
 	public void setupTest() throws MalformedURLException {
-		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),new ChromeOptions());;
+		driver = new RemoteWebDriver(new URL("http://localhost:9515/wd/hub"),new ChromeOptions());;
 		wait = new WebDriverWait(driver, 10);
 	}
 
