@@ -38,7 +38,4 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     - name: Upload math result for job 1
-      uses: actions/upload-artifact@v1
-      with:
-        name: testing
-        path: target/enunciado-practica-testing.jar
+      run: ls
