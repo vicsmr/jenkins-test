@@ -38,4 +38,4 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     - name: Upload math result for job 1
-      run: ls
+      run: cd target; ls
