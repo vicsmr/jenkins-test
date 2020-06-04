@@ -3,6 +3,9 @@ package es.codeurjc.daw.e2e.selenium;
 import static java.lang.String.format;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +15,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,9 +30,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class SeleniumTest {
 
 	@LocalServerPort
-    int port;
+	int port;
 
-	private WebDriver driver;
+	private RemoteWebDriver driver;
 	private WebDriverWait wait;
 
 	@BeforeAll
@@ -36,8 +41,8 @@ public class SeleniumTest {
 	}
 
 	@BeforeEach
-	public void setupTest() {
-		driver = new ChromeDriver();
+	public void setupTest() throws MalformedURLException {
+		driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),new ChromeOptions());;
 		wait = new WebDriverWait(driver, 10);
 	}
 
