@@ -44,6 +44,8 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: testing
+      - name: RUN
+        run: ls
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
