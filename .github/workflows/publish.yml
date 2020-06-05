@@ -44,8 +44,9 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: testing
-      - name: RUN
-        run: cd testing; ls
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         with:
