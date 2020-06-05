@@ -2,7 +2,7 @@ name: Publish App
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 20 * * *"
 
 jobs:
 
