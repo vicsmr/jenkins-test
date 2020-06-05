@@ -59,7 +59,7 @@ jobs:
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: testing/enunciado-practica-testing-1.0.0.jar
+          file: testing/enunciado-practica-testing-1.0.1.jar
           asset_name: Testing.jar
           tag: ${{steps.version.outputs.version}}
           overwrite: true
