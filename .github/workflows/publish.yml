@@ -53,5 +53,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: testing/enunciado-practica-testing-1.0.0.jar
           asset_name: Testing.jar
-          tag: 1.0.0
+          tag: ${{steps.date.outputs.date}}
           overwrite: true
