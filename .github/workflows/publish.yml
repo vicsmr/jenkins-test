@@ -1,8 +1,8 @@
 name: Publish App
 
 on:
-  push:
-    branches: [ master ]
+  schedule:
+    - cron:  '* 19 * * *'
 
 jobs:
 
@@ -46,7 +46,7 @@ jobs:
           name: testing
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+        run: echo "::set-output name=date::$(date +'%Y%m%d')"
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         with:
