@@ -2,7 +2,7 @@ name: Publish App
 
 on:
   schedule:
-    - cron: "0 20 * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
 
@@ -47,11 +47,18 @@ jobs:
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y%m%d')"
+      - name: Get project version
+        id: version
+        run: echo "::set-output name=version::$(mvn -q \
+                  -Dexec.executable="echo" \
+                  -Dexec.args='${project.version}' \
+                  --non-recursive \
+                  org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)"
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: testing/enunciado-practica-testing-1.0.0.jar
           asset_name: Testing.jar
-          tag: ${{steps.date.outputs.date}}
+          tag: ${{steps.version.outputs.version}}
           overwrite: true
