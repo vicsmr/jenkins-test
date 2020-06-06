@@ -5,9 +5,8 @@ name: Testing
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - '*'
 
 jobs:
   build:
@@ -29,10 +28,4 @@ jobs:
         java-version: 1.8
 
     - name: Build with Maven
-      run: mvn clean package
-
-    - name: Verify Sonar
-      run: mvn verify sonar:sonar
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn test
