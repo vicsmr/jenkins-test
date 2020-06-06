@@ -4,11 +4,12 @@
 name: Testing
 
 on:
-  pull_request:
-    branches: [ master ]
+  push:
+    branches:
+      - '*'
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
