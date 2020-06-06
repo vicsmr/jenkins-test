@@ -21,4 +21,4 @@ jobs:
         java-version: 1.8
 
     - name: Unit tests
-      run: mvn verify
+      run: mvn -Dtest=UnitaryTest verify
