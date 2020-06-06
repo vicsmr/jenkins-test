@@ -23,9 +23,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Get project version
-      id: version
-      run: echo "::set-output name=version::$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)"
     
     - name: Build with Maven
       run: mvn clean package
@@ -34,7 +31,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: testing
-        path: target/enunciado-practica-testing-${{steps.version.outputs.version}}.jar
+        path: target/*.jar
 
   publish:
 
@@ -61,7 +58,7 @@ jobs:
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: testing/enunciado-practica-testing-${{steps.version.outputs.version}}.jar
+          file: testing/*.jar
           asset_name: Testing.jar
           tag: ${{steps.version.outputs.version}}
           overwrite: true
