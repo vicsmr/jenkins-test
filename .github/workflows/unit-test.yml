@@ -22,3 +22,9 @@ jobs:
 
     - name: Unit tests
       run: mvn -Dtest=UnitaryTest verify
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2-preview
+      with:
+        name: junit
+        path: target/surefire-reports/*.xml
