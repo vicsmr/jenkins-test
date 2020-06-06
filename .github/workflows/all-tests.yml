@@ -41,14 +41,14 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
     - name: Upload artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2-preview
       with:
         name: archive
         path: target/*.jar
     - name: Build with Maven
       run: cd target; ls; cd surefire-reports; ls
     - name: Upload artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2-preview
       with:
         name: junit
         path: target/surefire-reports/*.xml
