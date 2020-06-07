@@ -4,9 +4,9 @@
 name: Unit tests
 
 on:
-  push:
+  pull_request:
     branches:
-      - '*'
+      - develop
 
 jobs:
   test:
