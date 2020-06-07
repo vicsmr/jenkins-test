@@ -27,6 +27,10 @@ jobs:
     
     - name: Build with Maven
       run: mvn clean package
+    
+    - name: Get project version
+      id: version
+      run: echo "::set-output name=version::$(mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)"
 
     - name: Upload artifact
       uses: actions/upload-artifact@v1
