@@ -17,7 +17,7 @@ public class BlogWebController {
 
 	@GetMapping("/")
 	public String blog(Model model) {
-		model.addAttribute("posts", this.postService.getPosts().entrySet());
+		model.addAttribute("posts", this.postService.getPosts());
 		return "blog";
 	}
 
@@ -41,7 +41,7 @@ public class BlogWebController {
 
 	@PostMapping("/post")
 	public String post(Model model, Post post) {
-		this.postService.addPost(post);
+		this.postService.savePost(post);
 		return "redirect:/post/" + post.getId();
 	}
 
@@ -53,8 +53,8 @@ public class BlogWebController {
 			model.addAttribute("errorMessage", "No existe un post con id " + id);
 			return "error";
 		}
-		this.postService.setCommentId(comment);
-		post.addComment(comment);
+		comment.setPost(post);
+		postService.saveComment(comment);
 		return "redirect:/post/" + post.getId();
 	}
 
@@ -65,12 +65,12 @@ public class BlogWebController {
 			model.addAttribute("errorMessage", "No existe un post con id " + postId);
 			return "error";
 		}
-		Comment comment = post.getComment(commentId);
+		Comment comment = postService.getComment(commentId);
 		if (comment == null) {
 			model.addAttribute("errorMessage", "No existe un comentario con id " + commentId);
 			return "error";
 		}
-		post.deleteComment(commentId);
+		postService.deleteComment(commentId);
 		return "redirect:/post/" + post.getId();
 	}
 

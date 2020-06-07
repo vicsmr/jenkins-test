@@ -29,7 +29,7 @@ public class BlogRestController {
 	@JsonView(Post.Basic.class)
 	@GetMapping("/post")
 	public ResponseEntity<List<Post>> listPosts() {
-		return new ResponseEntity<>(new ArrayList<>(this.postService.getPosts().values()), HttpStatus.OK);
+		return new ResponseEntity<>(new ArrayList<>(this.postService.getPosts()), HttpStatus.OK);
 	}
 
 	@JsonView(Full.class)
@@ -45,7 +45,7 @@ public class BlogRestController {
 	@JsonView(Post.Basic.class)
 	@PostMapping("/post")
 	public ResponseEntity<Post> newPost(@RequestBody Post post) {
-		this.postService.addPost(post);
+		this.postService.savePost(post);
 		return new ResponseEntity<>(post, HttpStatus.CREATED);
 	}
 
@@ -56,8 +56,8 @@ public class BlogRestController {
 		if (post == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		this.postService.setCommentId(comment);
-		post.addComment(comment);
+		comment.setPost(post);
+		postService.saveComment(comment);
 		return new ResponseEntity<>(comment, HttpStatus.CREATED);
 	}
 
@@ -67,11 +67,11 @@ public class BlogRestController {
 		if (post == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		Comment comment = post.getComment(commentId);
+		Comment comment = postService.getComment(commentId);
 		if (comment == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		post.deleteComment(commentId);
+		postService.deleteComment(commentId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 

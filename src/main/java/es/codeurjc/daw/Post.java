@@ -5,9 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-
+@Entity
 public class Post {
 
 	interface Basic {
@@ -20,7 +27,9 @@ public class Post {
 	}
 
 	@JsonView(Basic.class)
-	private long id = -1;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
 	@JsonView(Basic.class)
 	private String title;
@@ -29,10 +38,12 @@ public class Post {
 	private String content;
 
 	@JsonView(Extended.class)
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
 
-	@JsonIgnore
-	private Map<Long, Comment> commentsMap = new HashMap<>();
+	public Post() {
+
+	}
 
 	public Post(String title, String content) {
 		this.title = title;
@@ -56,19 +67,7 @@ public class Post {
 	}
 
 	public List<Comment> getComments() {
-		return new ArrayList<>(this.commentsMap.values());
-	}
-
-	public Comment getComment(long id) {
-		return this.commentsMap.get(id);
-	}
-
-	public void addComment(Comment comment) {
-		this.commentsMap.put(comment.getId(), comment);
-	}
-
-	public void deleteComment(long commentId) {
-		this.commentsMap.remove(commentId);
+		return comments;
 	}
 
 	@Override

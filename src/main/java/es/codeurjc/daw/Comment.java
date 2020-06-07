@@ -1,20 +1,35 @@
 package es.codeurjc.daw;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+@Entity
 public class Comment {
 
 	interface Full {
 	}
 
 	@JsonView(Full.class)
-	private long id = -1;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
 	@JsonView(Full.class)
 	private String author;
 
 	@JsonView(Full.class)
 	private String message;
+
+	@ManyToOne
+	private Post post;
+
+	public Comment() {
+
+	}
 
 	public Comment(String author, String message) {
 		this.author = author;
@@ -43,6 +58,14 @@ public class Comment {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 	@Override
