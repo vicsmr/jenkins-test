@@ -1,8 +1,9 @@
 name: Publish App
 
 on:
-  schedule:
-    - cron: "0 22 * * *"
+  push:
+    branches:
+      - '*'
 
 jobs:
         
