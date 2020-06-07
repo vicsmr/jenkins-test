@@ -40,9 +40,10 @@ public class BlogWebController {
 	}
 
 	@PostMapping("/post")
-	public String post(Model model, Post post) {
-		this.postService.savePost(post);
-		return "redirect:/post/" + post.getId();
+	public String post(Model model, PostDTO post) {
+		Post postEntity = new Post(post.getTitle(), post.getContent());
+		Post postResponse = this.postService.savePost(postEntity);
+		return "redirect:/post/" + postResponse.getId();
 	}
 
 	@PostMapping("/post/{id}/comment")
